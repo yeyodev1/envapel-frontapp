@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { toRef } from 'vue'
 import { useBodyScroll } from '@/composables/useBodyScroll'
+import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 const props = defineProps<{
   open: boolean
@@ -22,9 +23,7 @@ useBodyScroll(toRef(props, 'open'))
       <div v-if="open" class="modal" @click.self="emit('cancel')">
         <div class="modal__box" role="dialog" aria-modal="true" :aria-label="title">
           <span class="modal__icon" :class="{ 'modal__icon--danger': danger }">
-            <i
-              :class="danger ? 'fa-solid fa-triangle-exclamation' : 'fa-solid fa-circle-question'"
-            ></i>
+            <BaseIcon :name="danger ? 'triangle-exclamation' : 'circle-question'" />
           </span>
           <h3 class="modal__title">{{ title }}</h3>
           <p v-if="message" class="modal__message">{{ message }}</p>
