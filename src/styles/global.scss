@@ -220,3 +220,71 @@ label {
     transition-duration: 0.01ms !important;
   }
 }
+
+// Encabezado de sección compartido por todas las secciones del home
+.section-head {
+  @include flex(column, flex-start, flex-start, 0.9rem);
+  max-width: 46rem;
+  margin-bottom: $space-lg;
+
+  &--center {
+    align-items: center;
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  &__eyebrow {
+    @include eyebrow;
+    @include flex(row, center, flex-start, 0.6rem);
+
+    &::before {
+      content: '';
+      width: 1.6rem;
+      height: 1px;
+      background: currentColor;
+    }
+  }
+
+  &__title {
+    @include display($display-md);
+  }
+
+  &__text {
+    font-size: $text-lg;
+    color: $ink-soft;
+    max-width: 58ch;
+  }
+}
+
+.btn--whatsapp {
+  background: $whatsapp;
+  color: #fff;
+
+  &:hover {
+    background: $whatsapp-deep;
+    transform: translateY(-1px);
+  }
+}
+
+.btn--light {
+  border: 1px solid rgba($paper, 0.4);
+  color: $paper;
+
+  &:hover {
+    background: $paper;
+    color: $ink;
+  }
+}
+
+// Estado inicial de los elementos que entran con scroll (ver useReveal)
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+@include reduced-motion {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
