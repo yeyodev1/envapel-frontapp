@@ -1,33 +1,52 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { site } from '@/config/site'
-import { useUserStore } from '@/stores/user'
+import { site, whatsappLink } from '@/config/site'
 import { useBodyScroll } from '@/composables/useBodyScroll'
+import BrandLogo from '@/components/BrandLogo.vue'
 
 const route = useRoute()
-const userStore = useUserStore()
 const mobileOpen = ref(false)
+const scrolled = ref(false)
 
 useBodyScroll(mobileOpen)
 
 // Al navegar se cierra el menú móvil.
-watch(() => route.fullPath, () => (mobileOpen.value = false))
+watch(
+  () => route.fullPath,
+  () => (mobileOpen.value = false),
+)
+
+function onScroll() {
+  scrolled.value = window.scrollY > 12
+}
+
+onMounted(() => {
+  onScroll()
+  window.addEventListener('scroll', onScroll, { passive: true })
+})
+onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
 </script>
 
 <template>
-  <header class="header">
+  <header class="header" :class="{ 'header--scrolled': scrolled || mobileOpen }">
     <div class="header__inner">
-      <RouterLink to="/" class="header__logo">{{ site.name }}</RouterLink>
+      <RouterLink to="/" class="header__logo" aria-label="Envapel, ir al inicio">
+        <BrandLogo />
+      </RouterLink>
 
-      <nav class="header__nav" :class="{ 'header__nav--open': mobileOpen }">
+      <nav class="header__nav" :class="{ 'header__nav--open': mobileOpen }" aria-label="Principal">
         <RouterLink v-for="link in site.nav" :key="link.to" :to="link.to" class="header__link">
           {{ link.label }}
         </RouterLink>
-        <RouterLink v-if="userStore.isAuthenticated" to="/cuenta" class="header__link">
-          Mi cuenta
-        </RouterLink>
-        <RouterLink v-else to="/login" class="btn btn--primary header__cta">Ingresar</RouterLink>
+        <a
+          :href="whatsappLink()"
+          class="btn btn--primary header__cta"
+          target="_blank"
+          rel="noopener"
+        >
+          <i class="fa-brands fa-whatsapp"></i> Cotizar
+        </a>
       </nav>
 
       <button
@@ -47,34 +66,48 @@ watch(() => route.fullPath, () => (mobileOpen.value = false))
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba($paper, 0.92);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid $line;
+  border-bottom: 1px solid transparent;
+  @include transition(background-color, border-color);
 
-  &__inner {
-    @include container;
-    @include flex(row, center, space-between, 1rem);
-    padding-block: 0.85rem;
+  // El blur va en un pseudo-elemento: backdrop-filter en el header lo vuelve
+  // el contenedor del menú móvil (position: fixed) y el menú queda recortado.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba($paper, 0.9);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    @include transition(opacity);
   }
 
-  &__logo {
-    @include display($text-xl, 600);
-    color: $ink;
+  &--scrolled {
+    border-color: $line;
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &__inner {
+    @include container(1240px);
+    @include flex(row, center, space-between, 1rem);
+    height: 4.25rem;
   }
 
   &__nav {
     display: none;
 
-    @include from('md') {
-      @include flex(row, center, flex-end, 1.75rem);
+    @include from('lg') {
+      @include flex(row, center, flex-end, 1.6rem);
     }
 
     &--open {
-      @include until('md') {
-        @include flex(column, stretch, flex-start, 0.5rem);
+      @include until('lg') {
+        @include flex(column, stretch, flex-start, 0.25rem);
         position: fixed;
-        inset: 0;
-        top: 61px;
+        inset: 4.25rem 0 0;
         background: $paper;
         padding: 1.5rem 1.25rem;
         z-index: 90;
@@ -83,32 +116,42 @@ watch(() => route.fullPath, () => (mobileOpen.value = false))
   }
 
   &__link {
-    @include eyebrow;
+    font-size: $text-sm;
+    font-weight: 500;
     color: $ink-soft;
-    padding: 0.6rem 0;
-    border-bottom: 1px solid transparent;
-    @include transition;
+    padding: 0.5rem 0;
+    @include transition(color);
 
-    &:hover,
-    &.router-link-active {
-      color: $accent-deep;
-      border-color: $accent;
+    &:hover {
+      color: $forest;
+    }
+
+    @include until('lg') {
+      font-family: $font-display;
+      font-size: $text-xl;
+      color: $ink;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid $line;
     }
   }
 
   &__cta {
-    padding: 0.6rem 1.3rem;
-    font-size: $text-xs;
+    padding: 0.6rem 1.25rem;
+
+    @include until('lg') {
+      margin-top: 1.25rem;
+      padding: 1rem;
+    }
   }
 
   &__burger {
     font-size: 1.3rem;
     color: $ink;
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2.75rem;
+    height: 2.75rem;
     @include flex(row, center, center);
 
-    @include from('md') {
+    @include from('lg') {
       display: none;
     }
   }
