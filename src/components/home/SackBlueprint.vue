@@ -1,11 +1,68 @@
 <script setup lang="ts">
 // Lámina técnica: vista frontal + vista lateral con cotas A, L, F y V.
 // Las cotas son letras, no números: cada cliente define sus medidas.
+import { onBeforeUnmount, onMounted, ref } from 'vue'
+import gsap from 'gsap'
+
 defineProps<{ variant: 'valve' | 'open' | 'square'; code: string; name: string }>()
+
+const svg = ref<SVGSVGElement | null>(null)
+let ctx: gsap.Context | null = null
+let observer: IntersectionObserver | null = null
+
+// Cada lámina se "dibuja" cuando entra en pantalla (cambiar de pestaña la vuelve
+// a montar): los trazos corren con stroke-dashoffset y luego entran cotas y textos.
+onMounted(() => {
+  if (!svg.value || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  ctx = gsap.context(() => {
+    const strokes = gsap.utils
+      .toArray<SVGGeometryElement>('.bp__line, .bp__thin')
+      .filter((el) => typeof el.getTotalLength === 'function')
+    strokes.forEach((el) => {
+      const len = el.getTotalLength()
+      gsap.set(el, { strokeDasharray: len, strokeDashoffset: len })
+    })
+    const tl = gsap
+      .timeline({ paused: true, defaults: { ease: 'power2.inOut' } })
+      .to(strokes, {
+        strokeDashoffset: 0,
+        duration: 0.9,
+        stagger: 0.03,
+        clearProps: 'strokeDasharray,strokeDashoffset',
+      })
+      .from(
+        '.bp__dim, .bp__fill, .bp__print, .bp__dash, .bp__stitch',
+        { autoAlpha: 0, duration: 0.4, stagger: 0.02 },
+        '-=0.5',
+      )
+      .from('text', { autoAlpha: 0, y: 4, duration: 0.35, stagger: 0.015 }, '-=0.3')
+
+    observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return
+        tl.play()
+        observer?.disconnect()
+      },
+      { threshold: 0.3 },
+    )
+    observer.observe(svg.value!)
+  }, svg.value)
+})
+
+onBeforeUnmount(() => {
+  observer?.disconnect()
+  ctx?.revert()
+})
 </script>
 
 <template>
-  <svg class="bp" viewBox="0 0 640 440" role="img" :aria-label="`Plano técnico de ${name}`">
+  <svg
+    ref="svg"
+    class="bp"
+    viewBox="0 0 640 440"
+    role="img"
+    :aria-label="`Plano técnico de ${name}`"
+  >
     <!-- marco de la lámina -->
     <rect x="8" y="8" width="624" height="424" class="bp__frame" />
 
