@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import gsap from 'gsap'
 import { site } from '@/config/site'
 import { faqs } from '@/config/catalog'
 import { useReveal } from '@/composables/useReveal'
@@ -9,6 +10,40 @@ const root = ref<HTMLElement | null>(null)
 useReveal(root)
 
 const open = ref<number | null>(0)
+
+// GSAP anima hasta height: 'auto' midiendo el contenido real; al terminar
+// limpia el inline y manda la clase --open. Así no hay alturas mágicas.
+watch(open, (next, prev) => {
+  const panel = (i: number) => root.value?.querySelector<HTMLElement>(`#faq-a-${i}`)
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const duration = reduce ? 0 : 0.45
+
+  const closing = prev != null ? panel(prev) : null
+  if (closing) {
+    gsap.fromTo(
+      closing,
+      { height: closing.scrollHeight },
+      { height: 0, duration, ease: 'power3.inOut', clearProps: 'height', overwrite: true },
+    )
+  }
+
+  const opening = next != null ? panel(next) : null
+  if (opening) {
+    gsap.fromTo(
+      opening,
+      { height: 0 },
+      { height: 'auto', duration, ease: 'power3.inOut', clearProps: 'height', overwrite: true },
+    )
+    gsap.from(opening.querySelector('p'), {
+      y: 10,
+      autoAlpha: 0,
+      duration,
+      delay: duration * 0.3,
+      overwrite: true,
+      clearProps: 'all',
+    })
+  }
+})
 
 // FAQPage en JSON-LD: es lo que más leen Google y los asistentes de IA para
 // responder "¿quién fabrica sacos de papel en Ecuador?".
@@ -122,12 +157,10 @@ onBeforeUnmount(() => script?.remove())
     @include transition(transform);
   }
 
-  // Altura animable sin JS y sin CSS Grid (regla del proyecto): se
-  // anima max-height sobre un contenedor que recorta.
+  // Estado en reposo; la animación de apertura y cierre la hace GSAP (ver watch).
   &__a {
     overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.45s $ease;
+    height: 0;
   }
 
   &__clip p {
@@ -136,7 +169,7 @@ onBeforeUnmount(() => script?.remove())
   }
 
   &--open &__a {
-    max-height: 20rem;
+    height: auto;
   }
 
   &--open &__icon {
