@@ -3,6 +3,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { site } from '@/config/site'
 import { faqs } from '@/config/catalog'
 import { useReveal } from '@/composables/useReveal'
+import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 const root = ref<HTMLElement | null>(null)
 useReveal(root)
@@ -54,7 +55,7 @@ onBeforeUnmount(() => script?.remove())
               @click="open = open === i ? null : i"
             >
               <span>{{ item.q }}</span>
-              <i class="fa-solid fa-plus qa__icon"></i>
+              <BaseIcon name="plus" class="qa__icon" />
             </button>
           </h3>
           <div :id="`faq-a-${i}`" class="qa__a" role="region" :aria-labelledby="`faq-q-${i}`">
