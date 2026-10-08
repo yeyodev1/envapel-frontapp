@@ -26,7 +26,8 @@ Si vite sirve código viejo tras un cambio grande: `rm -rf node_modules/.vite &&
   es sacar la lógica a un composable y dejar un componente que solo compone.
 - **Layout con flexbox.** Para "grillas" usar el mixin `flex-cards($basis, $gap)`.
 - **Nada de librerías UI ni Tailwind.** SCSS propio con los tokens de `src/styles/`.
-- **Iconos con Font Awesome por CDN** (`<i class="fa-solid fa-…">`). Sin emojis en la UI.
+- **Iconos con `<BaseIcon name="…" />`**: paths de Font Awesome Free en `src/config/icons.ts`, sin
+  fuente de íconos por CDN (pesaba 275 KB y frenaba el LCP). Sin emojis en la UI.
 - **El copy vive en `src/config/site.ts`**, no dentro de los componentes.
 - Todo `VITE_*` queda expuesto en el navegador: nunca un secreto con ese prefijo.
 
