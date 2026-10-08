@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { site } from '@/config/site'
 import { processSteps } from '@/config/catalog'
 import { useReveal } from '@/composables/useReveal'
+import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 const root = ref<HTMLElement | null>(null)
 useReveal(root)
@@ -18,7 +19,7 @@ useReveal(root)
           <p class="section-head__text">{{ site.plant.text }}</p>
           <ul class="plant__points">
             <li v-for="point in site.plant.points" :key="point">
-              <i class="fa-solid fa-check"></i> {{ point }}
+              <BaseIcon name="check" /> {{ point }}
             </li>
           </ul>
         </header>
@@ -108,7 +109,7 @@ useReveal(root)
       color: rgba($paper, 0.85);
     }
 
-    i {
+    .icon {
       color: $kraft;
       margin-right: 0.5rem;
     }
