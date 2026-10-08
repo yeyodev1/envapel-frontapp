@@ -1,30 +1,44 @@
-// Paleta de Envapel. Semántica primero: los componentes hablan de tinta,
-// papel y acento, no de "rosa" o "gris 700".
+// Paleta de Envapel, sacada del logo: hoja verde bosque, capas de papel kraft y
+// la palabra "Envapel" en carbón. Semántica primero: los componentes hablan de
+// tinta, papel, kraft y bosque, no de "verde 700".
 @use 'sass:color';
 
-// Acento de marca
-$accent: #8a6a52;
-$accent-deep: color.adjust($accent, $lightness: -12%);
-$accent-soft: color.mix($accent, #ffffff, 14%);
+// Marca
+$forest: #0b4a33; // verde profundo del logo
+$forest-mid: #1b855e; // verde claro del degradado del logo
+$forest-deep: #06301f;
+$kraft: #a6846b; // capas de papel del logo
+$kraft-deep: #7a5c45; // kraft legible sobre fondos claros
+$kraft-soft: #e9dfd2;
 
-// Superficies
-$paper: #fdfcfa; // fondo base
-$surface: #ffffff; // superficies elevadas
-$sand: #f1ece6; // bloques suaves
-$line: #e7e1d9; // bordes
+// Acento = el verde, que es el que lleva a la acción
+$accent: $forest;
+$accent-deep: $forest-deep;
+$accent-soft: color.mix($forest-mid, #ffffff, 14%);
+
+// Superficies: papel claro, no blanco hospital
+$paper: #f7f3ec; // fondo base
+$surface: #fffdf9; // superficies elevadas
+$sand: #efe7db; // bloques suaves
+$line: #e2d8ca; // bordes
+$line-strong: #cbbba6;
 
 // Texto
-$ink: #191423; // texto principal
-$ink-soft: #4a4552; // texto secundario
-$ink-muted: #8a8590; // terciario / labels
+$ink: #22201c; // carbón del logotipo
+$ink-soft: #4d4842;
+$ink-muted: #857d73;
 
-$overlay: rgba(#100c14, 0.55);
+$overlay: rgba(#14110d, 0.6);
+
+// WhatsApp: el canal de venta principal, con su verde reconocible
+$whatsapp: #1f9d55;
+$whatsapp-deep: #17803f;
 
 // Estados
-$success: #3bb77e;
-$warning: #d9a441;
-$info: #6a8caf;
-$danger: #c2554f;
+$success: #2f9e6a;
+$warning: #c98d2c;
+$info: #4f7a9a;
+$danger: #b84a43;
 $success-bg: rgba($success, 0.12);
 $warning-bg: rgba($warning, 0.12);
 $info-bg: rgba($info, 0.12);
@@ -38,7 +52,11 @@ $white: $surface;
 $text-light: $surface;
 $text-secondary: $ink-soft;
 
-// Sombras — suaves, nada de "card de dashboard"
-$shadow-sm: 0 1px 2px rgba($ink, 0.04), 0 4px 12px rgba($ink, 0.04);
-$shadow-md: 0 2px 6px rgba($ink, 0.05), 0 18px 40px rgba($ink, 0.08);
-$shadow-lg: 0 30px 70px rgba($ink, 0.14);
+// Sombras cálidas, teñidas de kraft
+$shadow-sm:
+  0 1px 2px rgba(#3b2c1f, 0.05),
+  0 4px 12px rgba(#3b2c1f, 0.05);
+$shadow-md:
+  0 2px 6px rgba(#3b2c1f, 0.06),
+  0 18px 40px rgba(#3b2c1f, 0.1);
+$shadow-lg: 0 30px 70px rgba(#3b2c1f, 0.18);
