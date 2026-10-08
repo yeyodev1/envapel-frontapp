@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { whatsappLink } from '@/config/site'
+import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 // Aparece después del hero para no tapar el primer llamado a la acción.
 const visible = ref(false)
@@ -26,7 +27,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
       rel="noopener"
       aria-label="Escríbenos por WhatsApp"
     >
-      <i class="fa-brands fa-whatsapp"></i>
+      <BaseIcon name="whatsapp" />
       <span class="wa__label">¿Cotizamos?</span>
     </a>
   </Transition>
@@ -49,7 +50,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
   box-shadow: 0 10px 30px rgba($whatsapp-deep, 0.4);
   @include transition(transform, background-color);
 
-  i {
+  .icon {
     font-size: 1.6rem;
   }
 
