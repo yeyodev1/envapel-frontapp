@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { site } from '@/config/site'
 import { layers } from '@/config/catalog'
 import { useReveal } from '@/composables/useReveal'
+import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 const root = ref<HTMLElement | null>(null)
 useReveal(root)
@@ -78,8 +79,8 @@ function sheetY(index: number) {
             </div>
           </Transition>
           <p class="anatomy__note">
-            <i class="fa-solid fa-circle-info"></i> El número de hojas y la barrera se definen según
-            el peso y el producto.
+            <BaseIcon name="circle-info" /> El número de hojas y la barrera se definen según el peso
+            y el producto.
           </p>
         </div>
       </div>
@@ -159,7 +160,7 @@ function sheetY(index: number) {
     font-size: $text-sm;
     color: rgba($paper, 0.5);
 
-    i {
+    .icon {
       color: $kraft;
       margin-right: 0.3rem;
     }
