@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use 'sass:list';
 @use 'colorVariables.module.scss' as *;
 
 // Breakpoints mobile-first. Uso: @include from('md') { ... }
@@ -66,8 +67,15 @@ $breakpoints: (
   border-radius: 14px;
 }
 
-@mixin transition($props: all) {
-  transition: $props 0.28s cubic-bezier(0.25, 0.6, 0.3, 1);
+// Acepta varias propiedades: @include transition(color, transform)
+@mixin transition($props...) {
+  @if list.length($props) == 0 {
+    transition: all 0.28s cubic-bezier(0.25, 0.6, 0.3, 1);
+  } @else {
+    transition-property: $props;
+    transition-duration: 0.28s;
+    transition-timing-function: cubic-bezier(0.25, 0.6, 0.3, 1);
+  }
 }
 
 @mixin reduced-motion {
