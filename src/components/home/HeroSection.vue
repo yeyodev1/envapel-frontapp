@@ -7,11 +7,13 @@ import SackIllustration from './SackIllustration.vue'
 const root = ref<HTMLElement | null>(null)
 
 // Entrada del hero en una sola línea de tiempo; el resto del sitio usa useReveal.
+// El texto solo se desplaza, nunca parte de opacity 0: el h1 es el LCP y un
+// elemento invisible no cuenta como pintado hasta que termina la animación.
 onMounted(() => {
   if (!root.value || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
   gsap.context(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-    tl.from('.hero__line', { y: 28, opacity: 0, duration: 0.9, stagger: 0.09 })
+    tl.from('.hero__line', { y: 18, duration: 0.8, stagger: 0.07 })
       .from('.hero__art', { y: 40, opacity: 0, rotate: -2, duration: 1.1 }, 0.15)
       .from('.hero__stat', { y: 16, opacity: 0, duration: 0.6, stagger: 0.07 }, 0.5)
   }, root.value)
