@@ -3,6 +3,9 @@ import TheHeader from '@/layout/TheHeader.vue'
 import TheFooter from '@/layout/TheFooter.vue'
 import ToastList from '@/components/ui/ToastList.vue'
 import WhatsAppFloat from '@/components/WhatsAppFloat.vue'
+import { usePageTransition } from '@/composables/usePageTransition'
+
+const { onLeave, onEnter } = usePageTransition()
 </script>
 
 <template>
@@ -10,7 +13,7 @@ import WhatsAppFloat from '@/components/WhatsAppFloat.vue'
     <TheHeader />
     <main class="app__main">
       <RouterView v-slot="{ Component, route }">
-        <Transition name="page" mode="out-in">
+        <Transition mode="out-in" :css="false" @leave="onLeave" @enter="onEnter">
           <component :is="Component" :key="route.path" />
         </Transition>
       </RouterView>
