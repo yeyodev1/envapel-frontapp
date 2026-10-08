@@ -2,7 +2,9 @@
   <section class="not-found">
     <p class="not-found__code">404</p>
     <h1 class="not-found__title">Esta página no existe</h1>
-    <p class="not-found__text">Puede que el enlace esté mal escrito o que la página se haya movido.</p>
+    <p class="not-found__text">
+      Puede que el enlace esté mal escrito o que la página se haya movido.
+    </p>
     <RouterLink to="/" class="btn btn--primary">Volver al inicio</RouterLink>
   </section>
 </template>
