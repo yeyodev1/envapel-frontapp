@@ -4,6 +4,7 @@ import { site, whatsappLink } from '@/config/site'
 import { products } from '@/config/catalog'
 import { monthlyOptions, printOptions, useQuote } from '@/composables/useQuote'
 import { useReveal } from '@/composables/useReveal'
+import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 const root = ref<HTMLElement | null>(null)
 useReveal(root)
@@ -85,7 +86,7 @@ const { form, canSend, previewHtml, send } = useQuote()
             ></textarea>
           </div>
           <button type="submit" class="btn btn--whatsapp quote__submit" :disabled="!canSend">
-            <i class="fa-brands fa-whatsapp"></i> {{ site.quote.submit }}
+            <BaseIcon name="whatsapp" /> {{ site.quote.submit }}
           </button>
         </form>
 
@@ -104,11 +105,11 @@ const { form, canSend, previewHtml, send } = useQuote()
           </div>
           <ul class="quote__contact">
             <li>
-              <i class="fa-brands fa-whatsapp"></i>
+              <BaseIcon name="whatsapp" />
               <a :href="whatsappLink()" target="_blank" rel="noopener">{{ site.phoneDisplay }}</a>
             </li>
-            <li><i class="fa-solid fa-industry"></i> {{ site.address.plant }}</li>
-            <li><i class="fa-solid fa-building"></i> {{ site.address.office }}</li>
+            <li><BaseIcon name="industry" /> {{ site.address.plant }}</li>
+            <li><BaseIcon name="building" /> {{ site.address.office }}</li>
           </ul>
         </aside>
       </div>
@@ -179,7 +180,7 @@ const { form, canSend, previewHtml, send } = useQuote()
     font-size: $text-sm;
     color: $ink-soft;
 
-    i {
+    .icon {
       width: 1.4rem;
       color: $forest;
     }
