@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import { site } from '@/config/site'
 import SackIllustration from './SackIllustration.vue'
+import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 const root = ref<HTMLElement | null>(null)
 
@@ -31,10 +32,10 @@ onMounted(() => {
         <p class="hero__text hero__line">{{ site.hero.text }}</p>
         <div class="hero__actions hero__line">
           <RouterLink to="/#cotizar" class="btn btn--primary">
-            {{ site.hero.primary }} <i class="fa-solid fa-arrow-right"></i>
+            {{ site.hero.primary }} <BaseIcon name="arrow-right" />
           </RouterLink>
           <RouterLink to="/#planos" class="btn btn--ghost">
-            <i class="fa-solid fa-ruler-combined"></i> {{ site.hero.secondary }}
+            <BaseIcon name="ruler-combined" /> {{ site.hero.secondary }}
           </RouterLink>
         </div>
       </div>
