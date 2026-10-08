@@ -2,6 +2,7 @@
 import { site, whatsappLink } from '@/config/site'
 import { products } from '@/config/catalog'
 import BrandLogo from '@/components/BrandLogo.vue'
+import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 const year = new Date().getFullYear()
 </script>
@@ -18,7 +19,7 @@ const year = new Date().getFullYear()
           target="_blank"
           rel="noopener"
         >
-          <i class="fa-brands fa-whatsapp"></i> {{ site.phoneDisplay }}
+          <BaseIcon name="whatsapp" /> {{ site.phoneDisplay }}
         </a>
       </div>
 
@@ -35,16 +36,16 @@ const year = new Date().getFullYear()
           {{ link.label }}
         </RouterLink>
         <a :href="site.sisterBrand.url" target="_blank" rel="noopener">
-          {{ site.sisterBrand.name }} <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          {{ site.sisterBrand.name }} <BaseIcon name="arrow-up-right-from-square" />
         </a>
       </div>
 
       <div class="footer__col">
         <h2 class="footer__heading">Dónde estamos</h2>
-        <p><i class="fa-solid fa-industry"></i> {{ site.address.plant }}</p>
-        <p><i class="fa-solid fa-building"></i> {{ site.address.office }}</p>
+        <p><BaseIcon name="industry" /> {{ site.address.plant }}</p>
+        <p><BaseIcon name="building" /> {{ site.address.office }}</p>
         <a v-if="site.email" :href="`mailto:${site.email}`">
-          <i class="fa-solid fa-envelope"></i> {{ site.email }}
+          <BaseIcon name="envelope" /> {{ site.email }}
         </a>
       </div>
     </div>
@@ -99,7 +100,7 @@ const year = new Date().getFullYear()
       color: $kraft-soft;
     }
 
-    i {
+    .icon {
       width: 1.1rem;
       color: $kraft;
     }
