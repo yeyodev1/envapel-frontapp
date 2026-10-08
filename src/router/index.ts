@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { site } from '@/config/site'
+import HomeView from '@/views/HomeView.vue'
 
 const homeTitle = `${site.name} | ${site.tagline}`
 
@@ -7,7 +8,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/HomeView.vue'),
+    // Eager: es la página de entrada y su h1 es el LCP; lazy sumaba un viaje de red.
+    component: HomeView,
     meta: { title: homeTitle },
   },
   {
