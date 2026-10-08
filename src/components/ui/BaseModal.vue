@@ -22,7 +22,9 @@ useBodyScroll(toRef(props, 'open'))
       <div v-if="open" class="modal" @click.self="emit('cancel')">
         <div class="modal__box" role="dialog" aria-modal="true" :aria-label="title">
           <span class="modal__icon" :class="{ 'modal__icon--danger': danger }">
-            <i :class="danger ? 'fa-solid fa-triangle-exclamation' : 'fa-solid fa-circle-question'"></i>
+            <i
+              :class="danger ? 'fa-solid fa-triangle-exclamation' : 'fa-solid fa-circle-question'"
+            ></i>
           </span>
           <h3 class="modal__title">{{ title }}</h3>
           <p v-if="message" class="modal__message">{{ message }}</p>
@@ -31,7 +33,11 @@ useBodyScroll(toRef(props, 'open'))
             <button class="btn btn--ghost" @click="emit('cancel')">
               {{ cancelLabel || 'Cancelar' }}
             </button>
-            <button class="btn" :class="danger ? 'btn--danger' : 'btn--primary'" @click="emit('confirm')">
+            <button
+              class="btn"
+              :class="danger ? 'btn--danger' : 'btn--primary'"
+              @click="emit('confirm')"
+            >
               {{ confirmLabel || 'Confirmar' }}
             </button>
           </div>
