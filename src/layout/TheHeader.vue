@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { site, whatsappLink } from '@/config/site'
 import { useBodyScroll } from '@/composables/useBodyScroll'
 import BrandLogo from '@/components/BrandLogo.vue'
+import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 const route = useRoute()
 const mobileOpen = ref(false)
@@ -45,7 +46,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
           target="_blank"
           rel="noopener"
         >
-          <i class="fa-brands fa-whatsapp"></i> Cotizar
+          <BaseIcon name="whatsapp" /> Cotizar
         </a>
       </nav>
 
@@ -55,7 +56,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
         :aria-expanded="mobileOpen"
         @click="mobileOpen = !mobileOpen"
       >
-        <i :class="mobileOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+        <BaseIcon :name="mobileOpen ? 'xmark' : 'bars'" />
       </button>
     </div>
   </header>
