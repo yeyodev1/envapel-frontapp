@@ -4,6 +4,7 @@ import { site } from '@/config/site'
 import { products } from '@/config/catalog'
 import { useReveal } from '@/composables/useReveal'
 import SackBlueprint from './SackBlueprint.vue'
+import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 const root = ref<HTMLElement | null>(null)
 useReveal(root)
@@ -77,7 +78,7 @@ const legend = [
             </div>
           </dl>
           <RouterLink to="/#cotizar" class="btn btn--primary">
-            <i class="fa-solid fa-ruler-combined"></i> {{ site.blueprint.cta }}
+            <BaseIcon name="ruler-combined" /> {{ site.blueprint.cta }}
           </RouterLink>
         </aside>
       </div>
