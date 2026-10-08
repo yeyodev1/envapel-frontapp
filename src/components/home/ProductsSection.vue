@@ -4,6 +4,7 @@ import { site, whatsappLink } from '@/config/site'
 import { products } from '@/config/catalog'
 import { useReveal } from '@/composables/useReveal'
 import SackGlyph from './SackGlyph.vue'
+import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 const root = ref<HTMLElement | null>(null)
 useReveal(root)
@@ -34,7 +35,7 @@ useReveal(root)
             </ul>
             <div class="card__actions">
               <RouterLink :to="`/productos/${p.slug}`" class="card__link">
-                Ver ficha técnica <i class="fa-solid fa-arrow-right"></i>
+                Ver ficha técnica <BaseIcon name="arrow-right" />
               </RouterLink>
               <a
                 :href="whatsappLink(`Hola Envapel, quiero cotizar un ${p.name.toLowerCase()}.`)"
@@ -43,7 +44,7 @@ useReveal(root)
                 rel="noopener"
                 :aria-label="`Cotizar ${p.name} por WhatsApp`"
               >
-                <i class="fa-brands fa-whatsapp"></i>
+                <BaseIcon name="whatsapp" />
               </a>
             </div>
           </div>
@@ -152,11 +153,11 @@ useReveal(root)
     color: $forest;
     @include flex(row, center, flex-start, 0.45rem);
 
-    i {
+    .icon {
       @include transition(transform);
     }
 
-    &:hover i {
+    &:hover .icon {
       transform: translateX(4px);
     }
   }
