@@ -1,7 +1,10 @@
 // Solo variables. Las fuentes se cargan con <link> en index.html: este archivo
 // se inyecta en cada SFC vía vite.config.ts, así que no debe emitir CSS.
 
+// Serif editorial que conversa con el wordmark del logo
 $font-display: 'Fraunces', Georgia, serif;
-$font-principal: 'Montserrat', system-ui, sans-serif;
+// Sans técnica para lectura y una mono para fichas, cotas y planos
+$font-principal: 'IBM Plex Sans', system-ui, sans-serif;
+$font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 $font-secondary: $font-principal;
 $font-body: $font-principal;
