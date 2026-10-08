@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useToastStore } from '@/stores/toast'
+import BaseIcon from '@/components/ui/BaseIcon.vue'
+import type { IconName } from '@/config/icons'
 
 const toastStore = useToastStore()
 
-const icons: Record<string, string> = {
-  success: 'fa-solid fa-circle-check',
-  error: 'fa-solid fa-circle-exclamation',
-  info: 'fa-solid fa-circle-info',
+const icons: Record<string, IconName> = {
+  success: 'circle-check',
+  error: 'circle-exclamation',
+  info: 'circle-info',
 }
 </script>
 
@@ -21,7 +23,7 @@ const icons: Record<string, string> = {
           :class="`toasts__item--${toast.type}`"
           @click="toastStore.dismiss(toast.id)"
         >
-          <i :class="icons[toast.type]"></i>
+          <BaseIcon :name="icons[toast.type] ?? 'circle-info'" />
           <span>{{ toast.message }}</span>
         </div>
       </TransitionGroup>
@@ -48,18 +50,18 @@ const icons: Record<string, string> = {
     box-shadow: $shadow-md;
     cursor: pointer;
 
-    i {
+    .icon {
       color: $accent-soft;
     }
 
-    &--success i {
+    &--success .icon {
       color: $success;
     }
 
     &--error {
       background: $danger;
 
-      i {
+      .icon {
         color: $paper;
       }
     }
