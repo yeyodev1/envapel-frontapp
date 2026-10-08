@@ -1,25 +1,20 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-import { useUserStore } from '@/stores/user'
 import { site } from '@/config/site'
+
+const homeTitle = `${site.name} | ${site.tagline}`
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
     component: () => import('@/views/HomeView.vue'),
-    meta: { title: site.name },
+    meta: { title: homeTitle },
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@/views/LoginView.vue'),
-    meta: { title: 'Ingresar', guestOnly: true },
-  },
-  {
-    path: '/cuenta',
-    name: 'Account',
-    component: () => import('@/views/AccountView.vue'),
-    meta: { title: 'Mi cuenta', requiresAuth: true },
+    path: '/productos/:slug',
+    name: 'Product',
+    component: () => import('@/views/ProductView.vue'),
+    meta: { title: 'Productos' },
   },
   {
     path: '/:pathMatch(.*)*',
@@ -29,38 +24,37 @@ const routes: Array<RouteRecordRaw> = [
   },
 ]
 
+// Espera a que la vista lazy pinte la sección antes de bajar a ella.
+function waitFor(selector: string, tries = 20): Promise<Element | null> {
+  return new Promise((resolve) => {
+    const tick = (left: number) => {
+      const el = document.querySelector(selector)
+      if (el || left === 0) return resolve(el)
+      setTimeout(() => tick(left - 1), 50)
+    }
+    tick(tries)
+  })
+}
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
   // Con "atrás" el navegador devuelve la posición guardada; con un hash se
-  // baja a la sección; si no, arriba.
-  scrollBehavior(to, _from, savedPosition) {
+  // baja a la sección dejando libre el alto del header; si no, arriba.
+  async scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition
-    if (to.hash) return { el: to.hash, behavior: 'smooth' }
+    if (to.hash) {
+      const el = await waitFor(to.hash)
+      if (el) return { el: to.hash, top: 72, behavior: from.name === to.name ? 'smooth' : 'auto' }
+    }
     return { left: 0, top: 0 }
   },
 })
 
-router.beforeEach(async (to) => {
-  const userStore = useUserStore()
-
-  if (to.meta.requiresAuth || to.meta.guestOnly) {
-    // La sesión se verifica contra el API una sola vez por carga.
-    await userStore.restore()
-  }
-
-  if (to.meta.requiresAuth && !userStore.isAuthenticated) {
-    return { name: 'Login', query: { next: to.fullPath }, replace: true }
-  }
-
-  if (to.meta.guestOnly && userStore.isAuthenticated) {
-    return { name: 'Account', replace: true }
-  }
-})
-
 router.afterEach((to) => {
   const title = to.meta.title as string | undefined
-  document.title = title && title !== site.name ? `${title} — ${site.name}` : site.name
+  if (!title || title === homeTitle) document.title = homeTitle
+  else document.title = `${title} | ${site.name}`
 })
 
 export default router
