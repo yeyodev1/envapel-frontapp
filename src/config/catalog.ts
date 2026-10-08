@@ -7,6 +7,8 @@
  * capacidad, número de hojas y colores de impresión.
  */
 
+import type { IconName } from './icons'
+
 export type SackKind = 'valve' | 'open'
 
 export interface Product {
@@ -137,34 +139,34 @@ export const layers: Layer[] = [
   },
 ]
 
-export const industries = [
+export const industries: { icon: IconName; name: string; text: string }[] = [
   {
-    icon: 'fa-solid fa-seedling',
+    icon: 'seedling',
     name: 'Fertilizantes',
     text: 'Granulados y higroscópicos que exigen barrera contra humedad.',
   },
   {
-    icon: 'fa-solid fa-wheat-awn',
+    icon: 'wheat-awn',
     name: 'Harinas y molinería',
     text: 'Contacto con alimento bajo procesos de inocuidad.',
   },
   {
-    icon: 'fa-solid fa-flask',
+    icon: 'flask',
     name: 'Polvos industriales',
     text: 'Llenado por válvula, sin fugas ni polvo en la bodega.',
   },
   {
-    icon: 'fa-solid fa-fire',
+    icon: 'fire',
     name: 'Carbón vegetal',
     text: 'Papel resistente a puntas y presentaciones para percha.',
   },
   {
-    icon: 'fa-solid fa-cat',
+    icon: 'cat',
     name: 'Arena para gatos',
     text: 'Fondo cuadrado y barrera para una marca que se vea en percha.',
   },
   {
-    icon: 'fa-solid fa-cubes',
+    icon: 'cubes',
     name: 'Troceados y balanceados',
     text: 'Boca abierta cosida para llenado por gravedad.',
   },
