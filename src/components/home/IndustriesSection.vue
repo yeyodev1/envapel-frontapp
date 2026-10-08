@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { site, whatsappLink } from '@/config/site'
 import { industries } from '@/config/catalog'
 import { useReveal } from '@/composables/useReveal'
+import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 const root = ref<HTMLElement | null>(null)
 useReveal(root)
@@ -24,12 +25,12 @@ useReveal(root)
             target="_blank"
             rel="noopener"
           >
-            <span class="industry__icon"><i :class="item.icon"></i></span>
+            <span class="industry__icon"><BaseIcon :name="item.icon" /></span>
             <span class="industry__body">
               <span class="industry__name">{{ item.name }}</span>
               <span class="industry__text">{{ item.text }}</span>
             </span>
-            <i class="fa-solid fa-arrow-up-right industry__arrow"></i>
+            <BaseIcon name="arrow-right" class="industry__arrow" />
           </a>
         </li>
       </ul>
@@ -92,15 +93,17 @@ useReveal(root)
     color: $ink-soft;
   }
 
+  // Flecha en diagonal: abre WhatsApp, fuera del sitio
   &__arrow {
     color: $kraft;
     margin-top: 0.4rem;
+    transform: rotate(-45deg);
     @include transition(transform, color);
   }
 
   &:hover &__arrow {
     color: $forest;
-    transform: translate(3px, -3px);
+    transform: translate(3px, -3px) rotate(-45deg);
   }
 }
 </style>
