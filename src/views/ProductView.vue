@@ -5,6 +5,7 @@ import { site, whatsappLink } from '@/config/site'
 import { products } from '@/config/catalog'
 import { useQuote } from '@/composables/useQuote'
 import SackGlyph from '@/components/home/SackGlyph.vue'
+import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -31,9 +32,9 @@ function quote() {
     <div class="product__inner">
       <nav class="product__crumbs" aria-label="Ruta">
         <RouterLink to="/">Inicio</RouterLink>
-        <i class="fa-solid fa-chevron-right"></i>
+        <BaseIcon name="chevron-right" />
         <RouterLink to="/#productos">Productos</RouterLink>
-        <i class="fa-solid fa-chevron-right"></i>
+        <BaseIcon name="chevron-right" />
         <span>{{ product.name }}</span>
       </nav>
 
@@ -56,7 +57,7 @@ function quote() {
 
           <div class="product__actions">
             <button class="btn btn--primary" @click="quote">
-              Cotizar este saco <i class="fa-solid fa-arrow-right"></i>
+              Cotizar este saco <BaseIcon name="arrow-right" />
             </button>
             <a
               :href="
@@ -66,7 +67,7 @@ function quote() {
               target="_blank"
               rel="noopener"
             >
-              <i class="fa-brands fa-whatsapp"></i> Escribir ahora
+              <BaseIcon name="whatsapp" /> Escribir ahora
             </a>
           </div>
         </div>
@@ -76,17 +77,13 @@ function quote() {
         <section class="product__box">
           <h2>Ideal para</h2>
           <ul>
-            <li v-for="tag in product.idealFor" :key="tag">
-              <i class="fa-solid fa-check"></i> {{ tag }}
-            </li>
+            <li v-for="tag in product.idealFor" :key="tag"><BaseIcon name="check" /> {{ tag }}</li>
           </ul>
         </section>
         <section class="product__box">
           <h2>Opciones</h2>
           <ul>
-            <li v-for="opt in product.options" :key="opt">
-              <i class="fa-solid fa-plus"></i> {{ opt }}
-            </li>
+            <li v-for="opt in product.options" :key="opt"><BaseIcon name="plus" /> {{ opt }}</li>
           </ul>
         </section>
         <section class="product__box product__box--dark">
@@ -97,7 +94,7 @@ function quote() {
             :to="`/productos/${o.slug}`"
             class="product__other"
           >
-            {{ o.name }} <i class="fa-solid fa-arrow-right"></i>
+            {{ o.name }} <BaseIcon name="arrow-right" />
           </RouterLink>
         </section>
       </div>
@@ -130,7 +127,7 @@ function quote() {
     color: $ink-muted;
     margin-bottom: 2rem;
 
-    i {
+    .icon {
       font-size: 0.6rem;
     }
 
@@ -204,7 +201,7 @@ function quote() {
       @include flex(column, flex-start, flex-start, 0.6rem);
     }
 
-    li i {
+    li .icon {
       color: $forest;
       margin-right: 0.5rem;
       width: 1rem;
@@ -228,11 +225,11 @@ function quote() {
     font-family: $font-display;
     font-size: $text-lg;
 
-    &:hover i {
+    &:hover .icon {
       transform: translateX(4px);
     }
 
-    i {
+    .icon {
       font-size: 0.8rem;
       @include transition(transform);
     }
