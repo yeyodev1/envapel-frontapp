@@ -128,6 +128,11 @@ label {
   border-radius: $radius-pill;
   @include transition;
 
+  // En móvil no hay hover: el toque se confirma con un leve hundimiento.
+  &:active {
+    transform: scale(0.96);
+  }
+
   &--primary {
     background: $accent;
     color: $surface;
@@ -279,12 +284,12 @@ label {
 // Estado inicial de los elementos que entran con scroll (ver useReveal)
 [data-reveal] {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(48px);
 }
 
+// Con movimiento reducido solo hay fundido (useReveal), sin desplazamiento.
 @include reduced-motion {
   [data-reveal] {
-    opacity: 1;
     transform: none;
   }
 }
