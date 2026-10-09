@@ -18,7 +18,7 @@ useReveal(root)
       </header>
 
       <ul class="industries__list">
-        <li v-for="item in industries" :key="item.name" data-reveal>
+        <li v-for="item in industries" :key="item.name" data-reveal="card">
           <a
             class="industry"
             :href="whatsappLink(`Hola Envapel, necesito sacos para ${item.name.toLowerCase()}.`)"
