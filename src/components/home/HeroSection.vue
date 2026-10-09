@@ -1,24 +1,55 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import { site } from '@/config/site'
 import SackIllustration from './SackIllustration.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 const root = ref<HTMLElement | null>(null)
+let ctx: gsap.Context | null = null
 
 // Entrada del hero en una sola línea de tiempo; el resto del sitio usa useReveal.
 // El texto solo se desplaza, nunca parte de opacity 0: el h1 es el LCP y un
 // elemento invisible no cuenta como pintado hasta que termina la animación.
+// Al terminar, el saco queda flotando: en móvil no hay hover, y algo tiene que
+// moverse en la primera pantalla.
 onMounted(() => {
-  if (!root.value || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-  gsap.context(() => {
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-    tl.from('.hero__line', { y: 18, duration: 0.8, stagger: 0.07 })
-      .from('.hero__art', { y: 40, opacity: 0, rotate: -2, duration: 1.1 }, 0.15)
-      .from('.hero__stat', { y: 16, opacity: 0, duration: 0.6, stagger: 0.07 }, 0.5)
+  if (!root.value) return
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ctx = gsap.context(() => {
+    if (reduce) {
+      gsap.fromTo(['.hero__art', '.hero__stat'], { opacity: 0 }, { opacity: 1, duration: 0.8, stagger: 0.08 })
+      return
+    }
+    gsap
+      .timeline({ defaults: { ease: 'expo.out' } })
+      .from('.hero__line', { y: 40, duration: 1.1, stagger: 0.09 })
+      .fromTo(
+        '.hero__art',
+        { y: 90, scale: 0.85, rotate: -6, opacity: 0 },
+        { y: 0, scale: 1, rotate: 0, opacity: 1, duration: 1.4 },
+        0.1,
+      )
+      .fromTo(
+        '.hero__stat',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 },
+        0.45,
+      )
+      .add(() => {
+        gsap.to('.hero__float', {
+          y: -14,
+          rotate: 1.5,
+          duration: 2.6,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1,
+        })
+      })
   }, root.value)
 })
+
+onBeforeUnmount(() => ctx?.revert())
 </script>
 
 <template>
@@ -41,7 +72,7 @@ onMounted(() => {
       </div>
 
       <div class="hero__art">
-        <SackIllustration />
+        <div class="hero__float"><SackIllustration /></div>
       </div>
     </div>
 
@@ -114,6 +145,7 @@ onMounted(() => {
     border-radius: 50%;
     background: $forest-mid;
     box-shadow: 0 0 0 4px rgba($forest-mid, 0.18);
+    animation: hero-pulse 2s ease-out infinite;
   }
 
   &__title {
@@ -182,6 +214,16 @@ onMounted(() => {
     color: $ink-muted;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+  }
+}
+
+// "Planta en operación": el punto late como un indicador encendido.
+@keyframes hero-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba($forest-mid, 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba($forest-mid, 0);
   }
 }
 </style>
