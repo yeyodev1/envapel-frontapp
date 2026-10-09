@@ -30,8 +30,13 @@ watch(
   () => (mobileOpen.value = false),
 )
 
+// Barra de avance de lectura bajo el header: scaleX directo, sin re-render de Vue.
+const progress = ref<HTMLElement | null>(null)
+
 function onScroll() {
   scrolled.value = window.scrollY > 12
+  const max = document.documentElement.scrollHeight - window.innerHeight
+  if (progress.value) progress.value.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`
 }
 
 function onKey(e: KeyboardEvent) {
@@ -84,6 +89,7 @@ onBeforeUnmount(() => {
         </span>
       </button>
     </div>
+    <span ref="progress" class="header__progress" aria-hidden="true"></span>
   </header>
 </template>
 
@@ -171,6 +177,17 @@ onBeforeUnmount(() => {
       padding: 1rem;
       transition: none;
     }
+  }
+
+  &__progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: $accent;
+    transform: scaleX(0);
+    transform-origin: left;
   }
 
   &__burger {
