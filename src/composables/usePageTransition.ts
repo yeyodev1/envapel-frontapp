@@ -9,20 +9,23 @@ const reduce = () => window.matchMedia('(prefers-reduced-motion: reduce)').match
  */
 export function usePageTransition() {
   function onLeave(el: Element, done: () => void) {
-    if (reduce()) return done()
-    gsap.to(el, { autoAlpha: 0, y: -12, duration: 0.25, ease: 'power2.in', onComplete: done })
+    if (reduce()) return void gsap.to(el, { opacity: 0, duration: 0.2, onComplete: done })
+    gsap.to(el, { autoAlpha: 0, y: -24, duration: 0.28, ease: 'power2.in', onComplete: done })
   }
 
   function onEnter(el: Element, done: () => void) {
-    if (reduce()) return done()
+    if (reduce()) {
+      gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.35, clearProps: 'opacity', onComplete: done })
+      return
+    }
     gsap.fromTo(
       el,
-      { autoAlpha: 0, y: 18 },
+      { autoAlpha: 0, y: 40 },
       {
         autoAlpha: 1,
         y: 0,
-        duration: 0.5,
-        ease: 'power3.out',
+        duration: 0.7,
+        ease: 'expo.out',
         // Sin transform residual: un transform en el contenedor rompería los
         // position: sticky de las secciones.
         clearProps: 'transform,opacity,visibility',
