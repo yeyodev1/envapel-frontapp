@@ -20,7 +20,7 @@ useReveal(root)
       </header>
 
       <div class="products__list">
-        <article v-for="(p, i) in products" :key="p.slug" class="card" data-reveal>
+        <article v-for="(p, i) in products" :key="p.slug" class="card" data-reveal="card">
           <div class="card__visual">
             <span class="card__index">0{{ i + 1 }}</span>
             <div class="card__glyph">
