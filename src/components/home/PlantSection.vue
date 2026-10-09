@@ -50,7 +50,7 @@ useReveal(root)
         <p class="section-head__eyebrow" data-reveal>{{ site.process.eyebrow }}</p>
         <h3 class="process__title" data-reveal>{{ site.process.title }}</h3>
         <ol class="process__list">
-          <li v-for="step in processSteps" :key="step.n" class="step" data-reveal>
+          <li v-for="step in processSteps" :key="step.n" class="step" data-reveal="card">
             <span class="step__n">{{ step.n }}</span>
             <h4 class="step__title">{{ step.title }}</h4>
             <p class="step__text">{{ step.text }}</p>
