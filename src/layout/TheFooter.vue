@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { site, whatsappLink } from '@/config/site'
-import { products } from '@/config/catalog'
+import { useCatalog } from '@/composables/useCatalog'
 import BrandLogo from '@/components/BrandLogo.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 
+const { products } = useCatalog()
 const year = new Date().getFullYear()
 </script>
 
