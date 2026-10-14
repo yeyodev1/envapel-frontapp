@@ -115,6 +115,21 @@ export const site = {
   },
 
   whatsappDefault: 'Hola Envapel, quiero información sobre sus sacos de papel multicapa.',
+
+  // Panel donde Envapel administra su catálogo sin tocar código
+  admin: {
+    title: 'Panel Envapel',
+    loginTitle: 'Entrar al panel',
+    loginText: 'Administra los sacos que se muestran en la web.',
+    productsTitle: 'Productos',
+    productsText:
+      'Lo que publiques aquí aparece en la web al instante. Los borradores solo los ves tú.',
+    empty: 'Todavía no hay productos. Crea el primero.',
+    newProduct: 'Nuevo producto',
+    imageHelp:
+      'Foto del saco en JPG o PNG, de hasta 10 MB. Sin foto, la web muestra el dibujo del saco.',
+    deleteConfirm: '¿Eliminar este producto? Esta acción no se puede deshacer.',
+  },
 } as const
 
 export function whatsappLink(message: string = site.whatsappDefault): string {
