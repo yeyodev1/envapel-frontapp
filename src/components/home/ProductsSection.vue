@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { site, whatsappLink } from '@/config/site'
-import { products } from '@/config/catalog'
+import { useCatalog } from '@/composables/useCatalog'
 import { useReveal } from '@/composables/useReveal'
 import SackGlyph from './SackGlyph.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 
+const { products } = useCatalog()
 const root = ref<HTMLElement | null>(null)
 useReveal(root)
 </script>
@@ -23,7 +24,15 @@ useReveal(root)
         <article v-for="(p, i) in products" :key="p.slug" class="card" data-reveal="card">
           <div class="card__visual">
             <span class="card__index">0{{ i + 1 }}</span>
-            <div class="card__glyph">
+            <img
+              v-if="p.image?.url"
+              :src="p.image.url"
+              :alt="p.name"
+              class="card__photo"
+              loading="lazy"
+              decoding="async"
+            />
+            <div v-else class="card__glyph">
               <SackGlyph :kind="p.kind" :square="p.square" />
             </div>
           </div>
@@ -104,6 +113,12 @@ useReveal(root)
     width: 7.5rem;
     height: 9.5rem;
     @include transition(transform);
+  }
+
+  &__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   &:hover &__glyph {
