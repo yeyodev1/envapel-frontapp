@@ -17,6 +17,7 @@ import gsap from 'gsap'
  */
 export function useReveal(root: Ref<HTMLElement | null>) {
   let observer: IntersectionObserver | null = null
+  let mutations: MutationObserver | null = null
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   function show(el: HTMLElement, delay = 0) {
@@ -82,7 +83,25 @@ export function useReveal(root: Ref<HTMLElement | null>) {
       { rootMargin: '0px 0px -12% 0px', threshold: 0 },
     )
     items.forEach((el) => observer!.observe(el))
+
+    // El catálogo llega del API después de montar: sin esto, las tarjetas
+    // nuevas nacen con opacity 0 y nadie las muestra.
+    mutations = new MutationObserver((records) => {
+      records.forEach((r) =>
+        r.addedNodes.forEach((node) => {
+          if (!(node instanceof HTMLElement)) return
+          const found = node.matches('[data-reveal]')
+            ? [node]
+            : Array.from(node.querySelectorAll<HTMLElement>('[data-reveal]'))
+          found.forEach((el) => observer?.observe(el))
+        }),
+      )
+    })
+    mutations.observe(root.value, { childList: true, subtree: true })
   })
 
-  onBeforeUnmount(() => observer?.disconnect())
+  onBeforeUnmount(() => {
+    observer?.disconnect()
+    mutations?.disconnect()
+  })
 }
