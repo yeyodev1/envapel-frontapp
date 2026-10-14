@@ -22,6 +22,8 @@ export interface Product {
   idealFor: string[]
   specs: { label: string; value: string }[]
   options: string[]
+  // Foto real subida desde el panel; sin ella se dibuja el saco en SVG
+  image?: { url: string }
 }
 
 export const products: Product[] = [
