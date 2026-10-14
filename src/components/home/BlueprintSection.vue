@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { site } from '@/config/site'
-import { products } from '@/config/catalog'
+import { useCatalog } from '@/composables/useCatalog'
 import { useReveal } from '@/composables/useReveal'
 import SackBlueprint from './SackBlueprint.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
@@ -9,16 +9,21 @@ import BaseIcon from '@/components/ui/BaseIcon.vue'
 const root = ref<HTMLElement | null>(null)
 useReveal(root)
 
-const tabs = products.map((p, i) => ({
+const { products } = useCatalog()
+
+const tabs = computed(() =>
+  products.value.map((p, i) => ({
   slug: p.slug,
   name: p.name,
   code: `EV-${String(i + 1).padStart(2, '0')}-${p.kind === 'valve' ? 'VAL' : p.square ? 'FCU' : 'BAC'}`,
   variant: (p.kind === 'valve' ? 'valve' : p.square ? 'square' : 'open') as
-    'valve' | 'open' | 'square',
-}))
+      'valve' | 'open' | 'square',
+  })),
+)
 
-const current = ref(tabs[0]!.slug)
-const tab = computed(() => tabs.find((t) => t.slug === current.value) ?? tabs[0]!)
+const current = ref(tabs.value[0]?.slug ?? '')
+// Si el panel cambia los productos, la pestaña elegida puede dejar de existir.
+const tab = computed(() => tabs.value.find((t) => t.slug === current.value) ?? tabs.value[0])
 
 const legend = [
   { key: 'A', name: 'Ancho', text: 'Medida frontal del saco lleno. Define el área de impresión.' },
@@ -51,7 +56,7 @@ const legend = [
         </button>
       </div>
 
-      <div class="blueprint__body">
+      <div v-if="tab" class="blueprint__body">
         <div class="blueprint__sheet" data-reveal>
           <Transition name="fade" mode="out-in">
             <SackBlueprint
