@@ -2,7 +2,7 @@
 import { computed, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { site, whatsappLink } from '@/config/site'
-import { products } from '@/config/catalog'
+import { useCatalog } from '@/composables/useCatalog'
 import { useQuote } from '@/composables/useQuote'
 import SackGlyph from '@/components/home/SackGlyph.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
@@ -11,8 +11,9 @@ const route = useRoute()
 const router = useRouter()
 const { preselect } = useQuote()
 
-const product = computed(() => products.find((p) => p.slug === route.params.slug))
-const others = computed(() => products.filter((p) => p.slug !== route.params.slug))
+const { products } = useCatalog()
+const product = computed(() => products.value.find((p) => p.slug === route.params.slug))
+const others = computed(() => products.value.filter((p) => p.slug !== route.params.slug))
 
 watchEffect(() => {
   if (!product.value) return
@@ -40,7 +41,8 @@ function quote() {
 
       <div class="product__main">
         <div class="product__visual">
-          <SackGlyph :kind="product.kind" :square="product.square" />
+          <img v-if="product.image?.url" :src="product.image.url" :alt="product.name" />
+          <SackGlyph v-else :kind="product.kind" :square="product.square" />
         </div>
 
         <div class="product__info">
@@ -159,6 +161,13 @@ function quote() {
 
     svg {
       max-width: 15rem;
+    }
+
+    img {
+      width: 100%;
+      max-height: 26rem;
+      object-fit: contain;
+      border-radius: $radius-md;
     }
   }
 
