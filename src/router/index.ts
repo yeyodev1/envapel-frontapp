@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { site } from '@/config/site'
+import { useUserStore } from '@/stores/user'
 import HomeView from '@/views/HomeView.vue'
 
 const homeTitle = `${site.name} | ${site.tagline}`
@@ -17,6 +18,24 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Product',
     component: () => import('@/views/ProductView.vue'),
     meta: { title: 'Productos' },
+  },
+  {
+    path: '/admin/login',
+    name: 'AdminLogin',
+    component: () => import('@/views/admin/AdminLoginView.vue'),
+    meta: { title: 'Entrar al panel', admin: true },
+  },
+  {
+    path: '/admin',
+    name: 'AdminProducts',
+    component: () => import('@/views/admin/AdminProductsView.vue'),
+    meta: { title: 'Panel', admin: true, requiresAuth: true },
+  },
+  {
+    path: '/admin/productos/:id',
+    name: 'AdminProductEdit',
+    component: () => import('@/views/admin/AdminProductEditView.vue'),
+    meta: { title: 'Editar producto', admin: true, requiresAuth: true },
   },
   {
     path: '/:pathMatch(.*)*',
@@ -51,6 +70,15 @@ const router = createRouter({
     }
     return { left: 0, top: 0 }
   },
+})
+
+// El panel solo abre con una sesión de administrador verificada contra el API.
+router.beforeEach(async (to) => {
+  if (!to.meta.requiresAuth) return true
+  const user = useUserStore()
+  await user.restore()
+  if (user.isAdmin) return true
+  return { name: 'AdminLogin', query: { redirect: to.fullPath } }
 })
 
 router.afterEach((to) => {
