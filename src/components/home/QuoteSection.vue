@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { site, whatsappLink } from '@/config/site'
-import { products } from '@/config/catalog'
+import { useCatalog } from '@/composables/useCatalog'
 import { monthlyOptions, printOptions, useQuote } from '@/composables/useQuote'
 import { useReveal } from '@/composables/useReveal'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 
+const { products } = useCatalog()
 const root = ref<HTMLElement | null>(null)
 useReveal(root)
 
