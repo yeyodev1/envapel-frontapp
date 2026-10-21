@@ -34,6 +34,10 @@ useReveal(root)
           </a>
         </li>
       </ul>
+
+      <RouterLink to="/aplicaciones" class="industries__more" data-reveal>
+        Ver todos los sectores de aplicación <BaseIcon name="arrow-right" />
+      </RouterLink>
     </div>
   </section>
 </template>
@@ -53,6 +57,23 @@ useReveal(root)
 
     > li {
       border-bottom: 1px solid $line-strong;
+    }
+  }
+
+  &__more {
+    @include flex(row, center, flex-start, 0.5rem);
+    margin-top: 1.5rem;
+    font-size: $text-sm;
+    font-weight: 600;
+    color: $forest;
+
+    .icon {
+      font-size: 0.7rem;
+      @include transition(transform);
+    }
+
+    &:hover .icon {
+      transform: translateX(4px);
     }
   }
 }

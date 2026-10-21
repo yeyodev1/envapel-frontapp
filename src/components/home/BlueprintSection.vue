@@ -82,7 +82,7 @@ const legend = [
               <dd>{{ item.text }}</dd>
             </div>
           </dl>
-          <RouterLink to="/#cotizar" class="btn btn--primary">
+          <RouterLink to="/contacto#cotizar" class="btn btn--primary">
             <BaseIcon name="ruler-combined" /> {{ site.blueprint.cta }}
           </RouterLink>
         </aside>

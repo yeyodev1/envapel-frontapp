@@ -62,10 +62,10 @@ onBeforeUnmount(() => ctx?.revert())
         <h1 class="hero__title hero__line">{{ site.hero.title }}</h1>
         <p class="hero__text hero__line">{{ site.hero.text }}</p>
         <div class="hero__actions hero__line">
-          <RouterLink to="/#cotizar" class="btn btn--primary">
+          <RouterLink to="/contacto#cotizar" class="btn btn--primary">
             {{ site.hero.primary }} <BaseIcon name="arrow-right" />
           </RouterLink>
-          <RouterLink to="/#planos" class="btn btn--ghost">
+          <RouterLink to="/productos" class="btn btn--ghost">
             <BaseIcon name="ruler-combined" /> {{ site.hero.secondary }}
           </RouterLink>
         </div>

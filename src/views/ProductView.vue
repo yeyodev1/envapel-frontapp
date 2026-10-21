@@ -24,7 +24,7 @@ watchEffect(() => {
 function quote() {
   if (!product.value) return
   preselect(product.value.name)
-  router.push('/#cotizar')
+  router.push('/contacto#cotizar')
 }
 </script>
 
@@ -34,7 +34,7 @@ function quote() {
       <nav class="product__crumbs" aria-label="Ruta">
         <RouterLink to="/">Inicio</RouterLink>
         <BaseIcon name="chevron-right" />
-        <RouterLink to="/#productos">Productos</RouterLink>
+        <RouterLink to="/productos">Productos</RouterLink>
         <BaseIcon name="chevron-right" />
         <span>{{ product.name }}</span>
       </nav>
@@ -105,7 +105,7 @@ function quote() {
 
   <section v-else class="product product--missing">
     <h1 class="product__title">No encontramos ese producto</h1>
-    <RouterLink to="/#productos" class="btn btn--primary">Ver todos los sacos</RouterLink>
+    <RouterLink to="/productos" class="btn btn--primary">Ver todos los sacos</RouterLink>
   </section>
 </template>
 

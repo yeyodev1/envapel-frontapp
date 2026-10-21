@@ -14,10 +14,52 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: homeTitle },
   },
   {
+    path: '/productos',
+    name: 'Products',
+    component: () => import('@/views/ProductosView.vue'),
+    meta: { title: `Sacos industriales multicapa | ${site.name}` },
+  },
+  {
     path: '/productos/:slug',
     name: 'Product',
     component: () => import('@/views/ProductView.vue'),
     meta: { title: 'Productos' },
+  },
+  {
+    path: '/aplicaciones',
+    name: 'Applications',
+    component: () => import('@/views/AplicacionesView.vue'),
+    meta: { title: `Sectores de aplicación | ${site.name}` },
+  },
+  {
+    path: '/caracteristicas',
+    name: 'Features',
+    component: () => import('@/views/CaracteristicasView.vue'),
+    meta: { title: `Características y planos técnicos | ${site.name}` },
+  },
+  {
+    path: '/inocuidad',
+    name: 'FoodSafety',
+    component: () => import('@/views/InocuidadView.vue'),
+    meta: { title: `Inocuidad y FSSC 22000 v6 | ${site.name}` },
+  },
+  {
+    path: '/nosotros',
+    name: 'About',
+    component: () => import('@/views/NosotrosView.vue'),
+    meta: { title: `Quiénes somos | ${site.name}` },
+  },
+  {
+    path: '/sostenibilidad',
+    name: 'Sustainability',
+    component: () => import('@/views/SostenibilidadView.vue'),
+    meta: { title: `Sostenibilidad | ${site.name}` },
+  },
+  {
+    path: '/contacto',
+    name: 'Contact',
+    component: () => import('@/views/ContactoView.vue'),
+    meta: { title: `Ubicación y contacto | ${site.name}` },
   },
   {
     path: '/admin/login',

@@ -29,6 +29,9 @@ const year = new Date().getFullYear()
         <RouterLink v-for="p in products" :key="p.slug" :to="`/productos/${p.slug}`">
           {{ p.name }}
         </RouterLink>
+        <RouterLink v-for="link in site.productSubnav" :key="link.to" :to="link.to">
+          {{ link.label }}
+        </RouterLink>
       </div>
 
       <div class="footer__col">
@@ -52,7 +55,7 @@ const year = new Date().getFullYear()
     </div>
 
     <div class="footer__bar">
-      <span>© {{ year }} {{ site.legalName }} · RUC {{ site.ruc }}</span>
+      <span>© {{ year }} {{ site.legalName }} · RUC {{ site.ruc }} · {{ site.slogan }}</span>
       <span class="footer__credit">
         Sitio por <a href="https://bakano.ec" target="_blank" rel="noopener">Bakano</a>
       </span>

@@ -1,21 +1,26 @@
 # Envapel
 
-> Envapel (Envases Flexibles del Ecuador Envapel S.A., Grupo Fernández) es un fabricante ecuatoriano de sacos industriales de papel kraft multicapa, con planta propia en Durán (Guayas) y certificación de inocuidad alimentaria FSSC 22000. Lleva 8 años en el mercado y despacha a todo el Ecuador.
+> Envapel (Envases Flexibles del Ecuador Envapel S.A., Grupo Fernández) es un fabricante ecuatoriano de sacos industriales de papel multicapa, con planta en el km 7,5 vía Durán–Tambo (Durán, Guayas) y certificación de inocuidad alimentaria FSSC 22000 v6 emitida por SGS. Trabaja con papel extensible 100 % virgen, lleva 8 años en el mercado y despacha a todo el Ecuador.
 
 ## Productos
 
-- [Saco valvulado](https://envapel.com/productos/saco-valvulado): llenado por válvula con ensacadora, cierre automático. Para harinas, cemento, polvos químicos y fertilizantes granulados. Hasta 50 kg.
-- [Saco boca abierta cosido](https://envapel.com/productos/saco-boca-abierta-cosido): fondo cerrado, cierre con cosedora. Para fertilizantes, carbón vegetal, balanceados y troceados. Hasta 50 kg.
-- [Saco de fondo cuadrado](https://envapel.com/productos/saco-boca-abierta-pegado): se para solo en percha. Para arena para gatos, carbón para parrilla, alimento para mascotas y harinas al detal.
+- [Catálogo de sacos](https://envapel.com/productos): valvulados y de boca abierta, con detalle técnico, comparativa de formatos y usos por sector.
+- [Saco valvulado](https://envapel.com/productos/saco-valvulado): llenado por válvula con ensacadora, cierre automático por presión del producto. Para harinas, azúcar, leche en polvo, cemento, polvos químicos y fertilizantes. De 10 a 50 kg.
+- [Saco boca abierta cosido](https://envapel.com/productos/saco-boca-abierta-cosido): fondo cerrado de fábrica, cierre con cosedora. Para granos, semillas, fertilizantes, balanceados, carbón vegetal y troceados. De 5 a 50 kg.
+- [Saco de fondo cuadrado](https://envapel.com/productos/saco-boca-abierta-pegado): se para solo en percha. Para arena para gatos, carbón para parrilla, alimento para mascotas y harinas al detal. Presentaciones de 2 a 25 kg.
 
-## Industrias que atiende
+## Secciones
 
-Fertilizantes, harinas y molinería, polvos industriales, carbón vegetal, arena para gatos, troceados y balanceados.
+- [Sectores de aplicación](https://envapel.com/aplicaciones): agrícola, pecuario y mascotas, alimentario, químico e industrial, construcción y minerales, carbón y biomasa.
+- [Características y planos técnicos](https://envapel.com/caracteristicas): anatomía del saco multicapa, planos con medidas y preguntas frecuentes.
+- [Inocuidad FSSC 22000 v6](https://envapel.com/inocuidad): alcance de la certificación emitida por SGS.
+- [Quiénes somos](https://envapel.com/nosotros) · [Sostenibilidad](https://envapel.com/sostenibilidad) · [Contacto](https://envapel.com/contacto)
 
 ## Contacto
 
-- WhatsApp y teléfono: +593 98 562 1889
-- Planta: Durán, Guayas, Ecuador
-- Matriz: Bodegas Zatirón, Mz. 112 y Solar 4, Guayaquil
+- Correo: ventas@envapel.com
+- WhatsApp comercial: +593 96 260 3441
+- Planta: Km 7,5 vía Durán–Tambo, Durán, Guayas, Ecuador
+- Oficina: Bodegas Zatirón, Mz. 112 y Solar 4, Guayaquil
 - RUC: 0993186414001
 - Marca hermana: KAPA by Envapel, empaques para food service (https://kapa.com.ec)
